@@ -1,9 +1,11 @@
-const jsdom = require("jsdom");
+const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
 const fs = require('fs');
 
 const notifier = require('node-notifier');
+
+const opn = require('opn');
 
 var offers = new Array();
 
@@ -48,12 +50,17 @@ function areThereNewOffers(liveOffers) {
         console.log('============ YOU HAVE NEW OFFERS ============\n');
         console.log('\n');
         for(offer of newOffers) {
+            
             notifier.notify({
                 title: 'OLX - NEW ITEM!!',
                 message: offer.split(' - https')[0],
-                open: offer.split('https://'),
+                open: 'https://' + offer.split('https://')[1],
+                sound: true,
                 wait: true
             });
+
+            opn('https://' + offer.split('https://')[1]);
+
             console.log(offer);
             fs.appendFile(fileName, offer + '\n', error => {
                 if(error) {
