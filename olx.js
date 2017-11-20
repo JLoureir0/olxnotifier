@@ -20,8 +20,8 @@ function retrieveOffers() {
         const liveOffersDOM = dom.window.document.querySelectorAll('.link.detailsLink');
 
         for(const offer of liveOffersDOM) {            
-            if(offer && offer.textContent && offer.baseURI) {
-                liveOffers.push(offer.textContent.trim() + ' - ' + offer.baseURI);
+            if(offer && offer.textContent && offer.href) {
+                liveOffers.push(offer.textContent.trim() + ' - ' + offer.href);
             }
         }
         areThereNewOffers(liveOffers);
